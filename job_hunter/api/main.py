@@ -1,0 +1,112 @@
+from fastapi import FastAPI, BackgroundTasks, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
+from typing import List, Optional
+from datetime import datetime, timezone
+import uuid
+import sys
+import pathlib
+
+# Add the parent directory to sys.path so we can import internal modules easily
+sys.path.append(str(pathlib.Path(__file__).parent.parent))
+
+from config import get_settings
+from api.schemas import (
+    PipelineRunRequest,
+    JobIngestRequest,
+    ApprovalDecisionRequest,
+    JobResponse,
+    SystemStatusResponse
+)
+from api.service import (
+    run_pipeline_background,
+    get_pending_approvals,
+    resume_approval,
+    ingest_job,
+    get_all_jobs,
+    get_job,
+    repo
+)
+from schemas import DiscoveredJob
+
+app = FastAPI(title="Job Hunting Department API", version="1.0.0")
+
+# Setup CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/health", response_model=SystemStatusResponse)
+async def health_check():
+    settings = get_settings()
+    db_ok = True
+    try:
+        repo._get_conn().execute("SELECT 1")
+    except Exception:
+        db_ok = False
+        
+    return SystemStatusResponse(
+        status="ok",
+        env=settings.app_env,
+        default_model_fast=settings.default_model_fast,
+        default_model_pro=settings.default_model_pro,
+        database_connected=db_ok
+    )
+
+@app.post("/api/v1/pipeline/run")
+async def run_pipeline(request: PipelineRunRequest, background_tasks: BackgroundTasks):
+    thread_id = str(uuid.uuid4())
+    background_tasks.add_task(run_pipeline_background, thread_id, request.lane)
+    return {"status": "accepted", "thread_id": thread_id, "lane": request.lane}
+
+@app.post("/api/v1/jobs/ingest")
+async def ingest_job_endpoint(request: JobIngestRequest):
+    job = DiscoveredJob(
+        company=request.company,
+        role=request.role,
+        location=request.location,
+        salary=request.salary,
+        url=request.url,
+        major_skills=request.major_skills,
+        required_experience=request.required_experience,
+        remote_hybrid="Unknown",
+        source="webhook",
+        posted_timestamp=datetime.now(timezone.utc)
+    )
+    success = ingest_job(job)
+    if not success:
+        raise HTTPException(status_code=400, detail="Job already exists or could not be ingested")
+    return {"status": "success", "job_id": job.id}
+
+@app.get("/api/v1/jobs", response_model=List[JobResponse])
+async def list_jobs(status: Optional[str] = Query(None)):
+    jobs = get_all_jobs(status)
+    return [JobResponse(**j) for j in jobs]
+
+@app.get("/api/v1/approvals/pending", response_model=List[JobResponse])
+async def get_pending_approvals_endpoint():
+    jobs = get_pending_approvals()
+    return [JobResponse(**j) for j in jobs]
+
+@app.post("/api/v1/approvals/{thread_id}/decision")
+async def make_approval_decision(thread_id: str, request: ApprovalDecisionRequest, background_tasks: BackgroundTasks):
+    background_tasks.add_task(resume_approval, thread_id, request.decision, request.feedback)
+    return {"status": "accepted", "thread_id": thread_id, "decision": request.decision}
+
+@app.get("/api/v1/jobs/{job_id}/package")
+async def get_job_package(job_id: str):
+    job = get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    
+    payload = job.get("payload", {})
+    return {
+        "job_id": job_id,
+        "company_brief": payload.get("business_summary"),
+        "cv_prepared": payload.get("cv_prepared"),
+        "cover_letter": payload.get("cover_letter"),
+        "outreach_notes": payload.get("outreach_draft")
+    }

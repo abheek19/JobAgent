@@ -1,0 +1,1 @@
+# Init for scouts module

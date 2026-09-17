@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  job-hunter-api:
+    build: .
+    container_name: job-hunter-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./.env:/app/.env
+      - ./job_hunt.db:/app/job_hunt.db
+      - ./Job-Hunt-Master.csv:/app/Job-Hunt-Master.csv
+    environment:
+      - APP_ENV=production
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

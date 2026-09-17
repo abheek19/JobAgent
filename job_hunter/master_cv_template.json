@@ -1,0 +1,49 @@
+{
+  "candidate_info": {
+    "name": "Jane Doe",
+    "email": "jane.doe@example.com",
+    "phone": "+1-555-0123",
+    "location": "San Francisco, CA",
+    "linkedin": "https://linkedin.com/in/janedoe",
+    "github": "https://github.com/janedoe"
+  },
+  "target_preferences": {
+    "roles": ["Senior Software Engineer", "Principal Software Engineer", "Software Architect"],
+    "locations": ["San Francisco, CA", "Remote"],
+    "minimum_salary": 180000,
+    "industries": ["Tech", "Fintech", "Healthtech"]
+  },
+  "core_skills_matrix": {
+    "languages": ["Python", "Go", "TypeScript", "SQL"],
+    "frameworks": ["Django", "FastAPI", "React", "Vue"],
+    "cloud_and_devops": ["AWS", "GCP", "Docker", "Kubernetes", "Terraform"],
+    "databases": ["PostgreSQL", "Redis", "MongoDB", "Elasticsearch"]
+  },
+  "work_history": [
+    {
+      "company": "Tech Innovators Inc.",
+      "role": "Senior Software Engineer",
+      "start_date": "2020-03-01",
+      "end_date": "Present",
+      "impact_metrics": [
+        "Architected and deployed a microservices-based backend, increasing system throughput by 40%.",
+        "Reduced infrastructure costs by 25% through optimized AWS resource allocation.",
+        "Mentored a team of 5 junior developers, improving code review turnaround time by 50%."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of California, Berkeley",
+      "degree": "B.S. in Computer Science",
+      "graduation_date": "2015-05-01"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "AWS Certified Solutions Architect \u2013 Professional",
+      "issued_by": "Amazon Web Services",
+      "date": "2022-08-15"
+    }
+  ]
+}
