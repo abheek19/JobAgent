@@ -21,13 +21,16 @@ memory = MemorySaver()
 # Initialize the repository and engines
 repo = JobRepository()
 
+from filter.screener import JobFilterScreener
+
 # For a production setup, we might need actual implementations of scouts, but we'll use the engines
 # Ensure engines use the repo
-discovery_engine = DiscoveryEngine(repo)
-filter_engine = FilterEngine(repo)
-deepening_engine = DeepeningEngine(repo)
+discovery_engine = DiscoveryEngine(repo, use_mock=False)
+screener = JobFilterScreener()
+filter_engine = FilterEngine(repo, screener=screener, max_concurrent=1)
+deepening_engine = DeepeningEngine(repo, max_concurrent=1)
 tailor_agent = ApplicationTailor()
-tailoring_engine = TailoringEngine(repo, tailor_agent)
+tailoring_engine = TailoringEngine(repo, tailor_agent, max_concurrent=1)
 
 nodes = OrchestratorNodes(repo, discovery_engine, filter_engine, deepening_engine, tailoring_engine)
 builder = GraphBuilder(nodes)

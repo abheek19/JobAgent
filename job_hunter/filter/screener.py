@@ -49,7 +49,7 @@ Required Experience: {job.required_experience}
 Major Skills: {', '.join(job.major_skills)}
 """
         response = self.client.models.generate_content(
-            model=self.settings.default_model_pro,
+            model=self.settings.default_model_fast,
             contents=prompt,
             config=genai.types.GenerateContentConfig(
                 system_instruction=system_instruction,

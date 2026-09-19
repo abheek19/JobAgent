@@ -58,6 +58,8 @@ class FilterEngine:
             except Exception as e:
                 print(f"Error processing job {job.id}: {e}")
                 return "Error"
+            finally:
+                await asyncio.sleep(15) # Strict 5 RPM limit for gemini-3.5-flash
 
     async def run(self):
         pending = self.repo.get_pending_jobs(status="DISCOVERED")

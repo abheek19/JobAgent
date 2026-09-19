@@ -49,12 +49,11 @@ class DeepeningEngine:
 
             print(f"Deepening research for {job.company} - {job.role}...")
             
-            # Execute in parallel
+            # Execute sequentially to prevent concurrent Pro model burst limits
             try:
-                research_task = asyncio.create_task(self.investigator.investigate(job))
-                scout_task = asyncio.create_task(self.scout.scout(job))
-                
-                research_res, scout_res = await asyncio.gather(research_task, scout_task)
+                research_res = await self.investigator.investigate(job)
+                await asyncio.sleep(15)
+                scout_res = await self.scout.scout(job)
                 
                 # Update payload
                 update_payload = {
@@ -71,6 +70,8 @@ class DeepeningEngine:
             except Exception as e:
                 print(f"Failed deepening for {job_id}: {e}")
                 return False
+            finally:
+                await asyncio.sleep(15) # Strict 5 RPM limit for gemini-3.5-flash
 
     async def run(self):
         start_time = time.time()

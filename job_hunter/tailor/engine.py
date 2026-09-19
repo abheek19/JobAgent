@@ -63,6 +63,7 @@ class TailoringEngine:
                 print(f"Tailoring failed for {job_record['id']}: {e}")
             finally:
                 self.metrics["total_latency_seconds"] += (time.time() - start_time)
+                await asyncio.sleep(15) # Strict 5 RPM limit
 
     async def run(self) -> Dict[str, Any]:
         pending_jobs = self.repo.get_pending_jobs("HIGH_MATCH")

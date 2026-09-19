@@ -52,9 +52,16 @@ class DiscoveryEngine:
         # Given we are calling synchronous methods from async, the writes will execute synchronously 
         # in the current thread's event loop, so there's no actual concurrency of sqlite writes.
         
-        tasks = [scout.run(query_params, self.repository) for scout in scouts_to_run]
-        results = await asyncio.gather(*tasks, return_exceptions=True)
-        
+        # Run sequentially to strictly respect free tier rate limits (15 RPM / Burst limits)
+        results = []
+        for scout in scouts_to_run:
+            try:
+                res = await scout.run(query_params, self.repository)
+                results.append(res)
+            except Exception as e:
+                results.append(e)
+            await asyncio.sleep(15) # Pace the requests between scouts
+            
         aggregate_telemetry = {
             "total_found": 0,
             "unique_inserted": 0,

@@ -7,8 +7,8 @@ from pydantic import model_validator
 
 class Settings(BaseSettings):
     gemini_api_key: str
-    default_model_fast: str = "gemini-2.5-flash"
-    default_model_pro: str = "gemini-2.5-pro"
+    default_model_fast: str = "gemini-3.5-flash"
+    default_model_pro: str = "gemini-3.1-pro-preview"
     app_env: str = "production"
     log_level: str = "INFO"
     database_url: str = "sqlite:///./job_hunt.db"
