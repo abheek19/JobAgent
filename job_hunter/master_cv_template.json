@@ -1,49 +1,97 @@
 {
   "candidate_info": {
-    "name": "Jane Doe",
-    "email": "jane.doe@example.com",
-    "phone": "+1-555-0123",
-    "location": "San Francisco, CA",
-    "linkedin": "https://linkedin.com/in/janedoe",
-    "github": "https://github.com/janedoe"
+    "name": "Sagnik Dey",
+    "email": "sagnikd587@gmail.com",
+    "phone": "+91-8178911288",
+    "location": "Sector 16, Rohini, Delhi 110085",
+    "linkedin": "https://linkedin.com/in/sagnikdcodes",
+    "github": "https://github.com/sagnik-create"
   },
   "target_preferences": {
-    "roles": ["Senior Software Engineer", "Principal Software Engineer", "Software Architect"],
-    "locations": ["San Francisco, CA", "Remote"],
-    "minimum_salary": 180000,
-    "industries": ["Tech", "Fintech", "Healthtech"]
+    "roles": [],
+    "locations": [],
+    "minimum_salary": null,
+    "industries": []
   },
   "core_skills_matrix": {
-    "languages": ["Python", "Go", "TypeScript", "SQL"],
-    "frameworks": ["Django", "FastAPI", "React", "Vue"],
-    "cloud_and_devops": ["AWS", "GCP", "Docker", "Kubernetes", "Terraform"],
-    "databases": ["PostgreSQL", "Redis", "MongoDB", "Elasticsearch"]
+    "languages": [
+      "Python",
+      "Java",
+      "C/C++",
+      "HTML/CSS",
+      "JavaScript",
+      "SQL",
+      "Kotlin"
+    ],
+    "frameworks": [
+      "React",
+      "TailwindCSS",
+      "REST APIs",
+      "FastAPI",
+      "LangChain",
+      "LangGraph"
+    ],
+    "cloud_and_devops": [
+      "Linux",
+      "Git",
+      "GitHub",
+      "VS Code",
+      "AWS S3",
+      "Azure",
+      "Oracle"
+    ],
+    "databases": []
   },
   "work_history": [
     {
-      "company": "Tech Innovators Inc.",
-      "role": "Senior Software Engineer",
-      "start_date": "2020-03-01",
-      "end_date": "Present",
+      "company": "Shift S Consulting",
+      "role": "AI Engineering Intern",
+      "start_date": "2026-04-01",
+      "end_date": "2026-08-31",
       "impact_metrics": [
-        "Architected and deployed a microservices-based backend, increasing system throughput by 40%.",
-        "Reduced infrastructure costs by 25% through optimized AWS resource allocation.",
-        "Mentored a team of 5 junior developers, improving code review turnaround time by 50%."
+        "Reduced LLM API costs by 25% by evaluating and integrating open-source models (e.g., LLaMA/Mistral) for production use cases.",
+        "Pioneered a speech-to-query system, converting user speech into actionable data streams using STT and NLP, improving operational efficiency by 15%.",
+        "Collaborated asynchronously with a distributed team across multiple time zones using agile workflows and technical documentation."
+      ]
+    },
+    {
+      "company": "Deloitte Australia",
+      "role": "Data Analytics Job Simulation",
+      "start_date": "2025-06-01",
+      "end_date": "2025-06-30",
+      "impact_metrics": [
+        "Completed a data analysis and forensic technology simulation, extracting insights that improved investigative accuracy by 30%.",
+        "Created an interactive Tableau dashboard to visualize analytical insights, improving data interpretation efficiency by 25%."
       ]
     }
   ],
   "education": [
     {
-      "institution": "University of California, Berkeley",
-      "degree": "B.S. in Computer Science",
-      "graduation_date": "2015-05-01"
+      "institution": "University of Engineering and Management, Jaipur",
+      "degree": "B.Tech CSE (Artificial Intelligence and Machine Learning)",
+      "graduation_date": "Present"
+    },
+    {
+      "institution": "Sachdeva Public School, Rohini",
+      "degree": "Class 12th (CBSE)",
+      "graduation_date": "2023"
+    },
+    {
+      "institution": "Sachdeva Public School, Rohini",
+      "degree": "Class 10th (CBSE)",
+      "graduation_date": "2021"
     }
   ],
   "certifications": [
     {
-      "name": "AWS Certified Solutions Architect \u2013 Professional",
-      "issued_by": "Amazon Web Services",
-      "date": "2022-08-15"
+      "name": "Introduction to AI and Machine Learning on Google Cloud",
+      "issued_by": "Google Cloud",
+      "date": "2026-03-01"
+    },
+    {
+      "name": "Database and SQL for Data Science with Python",
+      "issued_by": "IBM",
+      "date": "2025-10-01"
     }
   ]
 }

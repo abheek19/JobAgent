@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api, type Job, type JobPackage, type SystemStatus } from './api';
-import { Briefcase, Activity, Clock, Play, FileText } from 'lucide-react';
+import { Briefcase, Activity, Clock, Play, FileText, Upload } from 'lucide-react';
 
 function App() {
   const [status, setStatus] = useState<SystemStatus | null>(null);
@@ -9,6 +9,7 @@ function App() {
   const [selectedJobPkg, setSelectedJobPkg] = useState<JobPackage | null>(null);
   const [loadingPkg, setLoadingPkg] = useState<boolean>(false);
   const [feedback, setFeedback] = useState<string>('');
+  const [uploading, setUploading] = useState<boolean>(false);
 
   const fetchStatus = () => api.getHealth().then(setStatus).catch(console.error);
   const fetchJobs = () => api.getJobs().then(setJobs).catch(console.error);
@@ -39,6 +40,26 @@ function App() {
       alert(`Pipeline started in ${lane}!`);
     } catch (e) {
       alert('Failed to start pipeline');
+    }
+  };
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!file.name.endsWith('.pdf')) {
+      alert("Only PDF files are supported!");
+      return;
+    }
+    
+    setUploading(true);
+    try {
+      await api.uploadResume(file);
+      alert("Resume successfully uploaded and parsed into the target schema!");
+    } catch (e: any) {
+      alert("Failed to upload resume: " + (e.response?.data?.detail || e.message));
+    } finally {
+      setUploading(false);
+      event.target.value = '';
     }
   };
 
@@ -82,6 +103,11 @@ function App() {
               className="rounded text-blue-600 focus:ring-blue-500"
             />
             <span>Auto-refresh (10s)</span>
+          </label>
+          <label className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded shadow transition cursor-pointer border border-gray-300">
+            {uploading ? <Activity className="animate-spin" size={18} /> : <Upload size={18} />}
+            <span className="text-sm font-medium">{uploading ? 'Parsing...' : 'Upload PDF Resume'}</span>
+            <input type="file" accept=".pdf" className="hidden" onChange={handleFileUpload} disabled={uploading} />
           </label>
           <select 
             value={lane} 

@@ -7,6 +7,12 @@ from pydantic import model_validator
 
 class Settings(BaseSettings):
     gemini_api_key: str
+    linkedin_scout_api_key: Optional[str] = None
+    company_scout_api_key: Optional[str] = None
+    filter_engine_api_key: Optional[str] = None
+    deepening_engine_api_key: Optional[str] = None
+    tailor_engine_api_key: Optional[str] = None
+    
     default_model_fast: str = "gemini-3.5-flash"
     default_model_pro: str = "gemini-3.1-pro-preview"
     app_env: str = "production"

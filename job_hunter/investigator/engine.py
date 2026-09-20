@@ -52,7 +52,7 @@ class DeepeningEngine:
             # Execute sequentially to prevent concurrent Pro model burst limits
             try:
                 research_res = await self.investigator.investigate(job)
-                await asyncio.sleep(15)
+                await asyncio.sleep(35) # 2 RPM limit for Pro
                 scout_res = await self.scout.scout(job)
                 
                 # Update payload
@@ -71,7 +71,7 @@ class DeepeningEngine:
                 print(f"Failed deepening for {job_id}: {e}")
                 return False
             finally:
-                await asyncio.sleep(15) # Strict 5 RPM limit for gemini-3.5-flash
+                await asyncio.sleep(35) # Strict 2 RPM limit for Pro
 
     async def run(self):
         start_time = time.time()

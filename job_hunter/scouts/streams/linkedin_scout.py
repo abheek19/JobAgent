@@ -18,7 +18,8 @@ class LinkedInScout(BaseScout):
         self.use_mock = use_mock
         self.settings = get_settings()
         if not self.use_mock:
-            self.client = genai.Client()
+            api_key = self.settings.linkedin_scout_api_key or self.settings.gemini_api_key
+            self.client = genai.Client(api_key=api_key)
 
     @property
     def name(self) -> str:

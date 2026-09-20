@@ -1,12 +1,12 @@
 job_id,status,company,role,url,location,salary,classification,contact_name,contact_found,cv_prepared,updated_at
-20887b650c0e771598cc4e25ef6b6aab32fa45621a4d3b6f2319e116995924c2,DISCOVERED,TestCorp,Backend Engineer,https://example.com/job123,Remote,$150k,,,,,2026-09-17T05:02:20.482150Z
-dc9b063d1079d45e4f0beb2f87bb691e447894deb3379e76f5beab9c08178169,DISCOVERED,MIT,Postdoc Researcher,https://higheredjobs.com/mit/34,"San Francisco, CA",$180k - $220k,,,,,2026-09-17T05:01:39.613456Z
-8488d4cd3f96695a5caeb14c9b763211f1d498b214fd5361f68ec1458897b96a,DISCOVERED,Stanford,Research Scientist,https://higheredjobs.com/stanford/12,"San Francisco, CA",$180k - $220k,,,,,2026-09-17T05:01:39.612932Z
-3a0e1a41d0620dd0310f67b15ea60d98064417281b68326607e121725e9b930c,DISCOVERED,Netflix,Data Engineer,https://indeed.com/viewjob?jk=123,"San Francisco, CA",$180k - $220k,,,,,2026-09-17T05:01:39.612400Z
-5c16a6c7f74bef47a5ce5d478f2ae63cfa847c10a16a3eacb8dde97074139d54,DISCOVERED,Amazon,SDE III,https://ziprecruiter.com/jobs/amazon1,"San Francisco, CA",$180k - $220k,,,,,2026-09-17T05:01:39.612400Z
-1bb51980fe1bb0d37ecabe8a4ed529148e8273bd8c39919673ec5936fc15261f,DISCOVERED,Stripe,Backend Engineer,https://jobs.lever.co/stripe/789,"San Francisco, CA",$180k - $220k,,,,,2026-09-17T05:01:39.611836Z
-c0c5736d46525eb1204d40d99444844c9de9182431c106ac6407d1460d1fdc05,DISCOVERED,Google,Senior Engineer,https://linkedin.com/jobs/google123,"San Francisco, CA",$180k - $220k,,,,,2026-09-17T05:01:39.610659Z
-74014f1bee0a08a0f8f583b66966eb934882bcf473baad28a897858bc2c6e54e,DISCOVERED,Meta,Software Architect,https://linkedin.com/jobs/meta456,"San Francisco, CA",$180k - $220k,,,,,2026-09-17T05:01:39.610659Z
-b9752b1f6f037784d712a2f2c415f0bf139692718b4d1846b941d250e62707da,DISCOVERED,OpenAI,Research Engineer,https://wellfound.com/jobs/openai99,"San Francisco, CA",$180k - $220k,,,,,2026-09-17T05:01:39.565327Z
-0fb9f1d56e0f182d9f8358e1f1b27dacbe64035610c831d99a89d0f0ec619a1d,DISCOVERED,Anthropic,Alignment Engineer,https://workatastartup.com/jobs/anthropic88,"San Francisco, CA",$180k - $220k,,,,,2026-09-17T05:01:39.565327Z
-b119501c4891e361439414ac9d4cbaa55b726b4f4b86605ab0f980360e2251bf,DISCOVERED,Airbnb,Principal Engineer,https://boards.greenhouse.io/airbnb/101,"San Francisco, CA",$180k - $220k,,,,,2026-09-17T05:01:39.562948Z
+8488d4cd3f96695a5caeb14c9b763211f1d498b214fd5361f68ec1458897b96a,POSSIBLE_MATCH,Stanford,Research Scientist,https://higheredjobs.com/stanford/12,"San Francisco, CA",$180k - $220k,Possible Match,,,,2026-09-19T20:35:25.008076Z
+0fb9f1d56e0f182d9f8358e1f1b27dacbe64035610c831d99a89d0f0ec619a1d,POSSIBLE_MATCH,Anthropic,Alignment Engineer,https://workatastartup.com/jobs/anthropic88,"San Francisco, CA",$180k - $220k,Possible Match,,,,2026-09-19T20:30:31.582670Z
+b119501c4891e361439414ac9d4cbaa55b726b4f4b86605ab0f980360e2251bf,POSSIBLE_MATCH,Airbnb,Principal Engineer,https://boards.greenhouse.io/airbnb/101,"San Francisco, CA",$180k - $220k,Possible Match,,,,2026-09-19T20:30:08.420165Z
+20887b650c0e771598cc4e25ef6b6aab32fa45621a4d3b6f2319e116995924c2,HIGH_MATCH,TestCorp,Backend Engineer,https://example.com/job123,Remote,$150k,High Match,,No,,2026-09-19T20:06:22.072569Z
+dc9b063d1079d45e4f0beb2f87bb691e447894deb3379e76f5beab9c08178169,REJECTED,MIT,Postdoc Researcher,https://higheredjobs.com/mit/34,"San Francisco, CA",$180k - $220k,Reject,,,,2026-09-19T20:05:21.250253Z
+5c16a6c7f74bef47a5ce5d478f2ae63cfa847c10a16a3eacb8dde97074139d54,POSSIBLE_MATCH,Amazon,SDE III,https://ziprecruiter.com/jobs/amazon1,"San Francisco, CA",$180k - $220k,Possible Match,,,,2026-09-19T20:04:25.313999Z
+3a0e1a41d0620dd0310f67b15ea60d98064417281b68326607e121725e9b930c,POSSIBLE_MATCH,Netflix,Data Engineer,https://indeed.com/viewjob?jk=123,"San Francisco, CA",$180k - $220k,Possible Match,,,,2026-09-19T20:03:53.718041Z
+1bb51980fe1bb0d37ecabe8a4ed529148e8273bd8c39919673ec5936fc15261f,POSSIBLE_MATCH,Stripe,Backend Engineer,https://jobs.lever.co/stripe/789,"San Francisco, CA",$180k - $220k,Possible Match,,,,2026-09-19T20:03:22.643275Z
+74014f1bee0a08a0f8f583b66966eb934882bcf473baad28a897858bc2c6e54e,POSSIBLE_MATCH,Meta,Software Architect,https://linkedin.com/jobs/meta456,"San Francisco, CA",$180k - $220k,Possible Match,,,,2026-09-19T20:02:51.016085Z
+c0c5736d46525eb1204d40d99444844c9de9182431c106ac6407d1460d1fdc05,POSSIBLE_MATCH,Google,Senior Engineer,https://linkedin.com/jobs/google123,"San Francisco, CA",$180k - $220k,Possible Match,,,,2026-09-19T20:02:19.432800Z
+b9752b1f6f037784d712a2f2c415f0bf139692718b4d1846b941d250e62707da,POSSIBLE_MATCH,OpenAI,Research Engineer,https://wellfound.com/jobs/openai99,"San Francisco, CA",$180k - $220k,Possible Match,,,,2026-09-19T20:01:12.209525Z

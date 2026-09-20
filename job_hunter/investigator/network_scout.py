@@ -13,9 +13,10 @@ from config import get_settings
 
 class NetworkScout:
     def __init__(self, model_id: Optional[str] = None):
-        settings = get_settings()
-        self.model_id = model_id or settings.default_model_fast
-        self.client = genai.Client(api_key=settings.gemini_api_key)
+        self.settings = get_settings()
+        api_key = self.settings.deepening_engine_api_key or self.settings.gemini_api_key
+        self.model_id = model_id or self.settings.default_model_fast
+        self.client = genai.Client(api_key=api_key)
 
     async def scout(self, job: DiscoveredJob) -> NetworkLead:
         prompt = f"""

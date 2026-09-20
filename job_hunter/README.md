@@ -51,6 +51,8 @@ flowchart TD
 
 ```text
 job_hunter/
+├── api/                        # FastAPI Backend endpoints
+├── frontend/                   # React + Vite Interactive Web Dashboard
 ├── database.py                 # SQLite WAL Persistence & CSV Exporter (Module 1)
 ├── schemas.py                  # Pydantic Data Contracts (Module 1)
 ├── master_cv_template.json     # Candidate Ground Truth
@@ -60,57 +62,63 @@ job_hunter/
 ├── investigator/               # Parallel Deepening Engine (Module 4)
 ├── tailor/                     # Application Tailoring Engine (Module 5)
 ├── orchestrator/               # Supervisor, HITL & Submission Gate (Module 6)
-│   ├── cli.py                  # Interactive rich Terminal Interface
-│   ├── graph.py                # LangGraph StateGraph Definition
-│   └── nodes.py                # Engine bindings to LangGraph
-└── tests/
-    ├── test_module_*.py        # Isolated unit tests for each module
-    └── test_blackbox_e2e.py    # E2E deterministic system testing suite
+└── tests/                      # Unit & E2E Testing Suite
 ```
 
-## Installation & Quickstart
+## Installation & Setup
 
-We recommend using `uv` for lightning-fast dependency management and execution, specifically sidestepping Windows execution alias issues.
-
-1. **Clone and Setup**
+1. **Clone the repository**
    ```bash
    git clone <repository_url>
    cd job_hunter
-   uv venv
-   uv pip install -r requirements.txt # or manually install dependencies
    ```
 
-2. **Configure API Keys**
-   Ensure your Gemini API key is available in your environment:
+2. **Configure Environment Variables**
+   Create a `.env` file in the root directory by copying the example:
    ```bash
-   set GEMINI_API_KEY="your-api-key"
+   cp .env.example .env
+   ```
+   Open the `.env` file and add your Gemini API Key:
+   ```env
+   GEMINI_API_KEY="your_google_gemini_api_key_here"
+   DEFAULT_MODEL_FAST=gemini-3.5-flash
+   DEFAULT_MODEL_PRO=gemini-3.1-pro-preview
    ```
 
 3. **Initialize the Candidate Profile**
    Edit `master_cv_template.json` to reflect your actual professional history. The system will never hallucinate skills outside of this document.
 
-## Usage Modes
+## Running the Application
 
-### Running the Interactive CLI
-The primary method of engaging with the system is via the interactive `rich` terminal UI, which manages the Human-in-the-Loop pauses.
+The system uses a **FastAPI backend** and a **React (Vite) frontend**. You need to run both to use the web dashboard.
 
+### 1. Start the Backend (FastAPI)
+Open a terminal in the root directory and start the Uvicorn server:
 ```bash
-uv run python orchestrator/cli.py --lane fast_lane
+uv run uvicorn main:app --reload
 ```
+The backend will run on `http://127.0.0.1:8000`.
 
-### Exporting and Auditing
-The pipeline continuously syncs its state to `Job-Hunt-Master.csv`. You can open this file in any spreadsheet software at any time to audit rejected jobs, monitor applied jobs, and review agent classifications.
+### 2. Start the Frontend (React Web Dashboard)
+Open a *second* terminal, navigate to the `frontend` folder, and start the Vite dev server:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+The interactive dashboard will open in your browser (usually `http://localhost:5173`). From there, you can:
+- Start the Discovery Pipeline (Fast or Normal Lane)
+- Watch live job discoveries in real-time
+- Review and Approve tailored cover letters & resumes
+
+## Rate Limiting & API Quotas
+The system is heavily optimized to run on Google Gemini's **Free Tier**. 
+- It uses `gemini-3.5-flash` for high-volume discovery and resume screening to save quota.
+- It automatically paces API requests (waiting 15 seconds between calls) to strictly respect the **5 Requests Per Minute** limit. If you have a paid API key and want it to run faster, you can modify the `asyncio.sleep(15)` delays in the `engine.py` files.
 
 ## Running Tests
 
-To run the isolated unit tests for the core modules:
-```bash
-uv run python -m pytest tests/test_module_1.py
-# ... up to module 6
-```
-
-To run the comprehensive Black-Box End-to-End Test Suite:
+To run the isolated unit tests or the End-to-End Test Suite:
 ```bash
 uv run python -m pytest tests/test_blackbox_e2e.py -v
 ```
-This suite verifies the golden path, negative path, filter disqualifications, zero-submission safety invariants, and idempotent re-ingestion constraints in a mocked, deterministic environment.

@@ -17,7 +17,8 @@ class JobFilterScreener:
         self.education = self.master_cv.get("education", [])
         
         self.settings = get_settings()
-        self.client = genai.Client(api_key=self.settings.gemini_api_key)
+        api_key = self.settings.filter_engine_api_key or self.settings.gemini_api_key
+        self.client = genai.Client(api_key=api_key)
 
     def _extract_skills(self, matrix: dict) -> List[str]:
         skills = []

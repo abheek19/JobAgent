@@ -42,4 +42,11 @@ export const api = {
   makeApprovalDecision: (threadId: string, decision: 'APPROVE' | 'REJECT' | 'REVISE', feedback?: string) => 
     apiClient.post(`/api/v1/approvals/${threadId}/decision`, { decision, feedback }).then(res => res.data),
   getJobPackage: (jobId: string) => apiClient.get<JobPackage>(`/api/v1/jobs/${jobId}/package`).then(res => res.data),
+  uploadResume: (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return apiClient.post('/api/v1/resume/upload', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    }).then(res => res.data);
+  }
 };

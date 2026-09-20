@@ -8,9 +8,10 @@ from config import get_settings
 
 class ApplicationTailor:
     def __init__(self, model_id: Optional[str] = None):
-        settings = get_settings()
-        self.client = genai.Client(api_key=settings.gemini_api_key)
-        self.model = model_id or settings.default_model_pro
+        self.settings = get_settings()
+        api_key = self.settings.tailor_engine_api_key or self.settings.gemini_api_key
+        self.client = genai.Client(api_key=api_key)
+        self.model = model_id or self.settings.default_model_pro
         
         self.system_instruction = """You are a Principal Software Architect Application Tailor.
 Your goal is to synthesize the candidate's verified credentials with a target job description and company research brief to generate tailored application materials.
