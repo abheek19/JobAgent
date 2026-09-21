@@ -1,0 +1,31 @@
+services:
+  # 1. FastAPI Backend (Web Service)
+  - type: web
+    name: job-hunter-backend
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn api.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: GEMINI_API_KEY
+        sync: false # You will enter this securely in the Render Dashboard
+      - key: DEFAULT_MODEL_FAST
+        value: gemini-3.5-flash
+      - key: DEFAULT_MODEL_PRO
+        value: gemini-3.1-pro-preview
+
+  # 2. React Frontend (Static Site)
+  - type: web
+    name: job-hunter-frontend
+    env: static
+    buildCommand: "cd frontend && npm install && npm run build"
+    staticPublishPath: "./frontend/dist"
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: job-hunter-backend
+          envVarKey: RENDER_EXTERNAL_URL
