@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Use Vite's environment variable for the backend URL, fallback to localhost for local dev
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+// If in development mode (Vite), point to the FastAPI port. Otherwise, use relative path (handled by FastAPI in prod)
+const API_URL = import.meta.env.DEV ? 'http://localhost:8000' : '';
 
 export const apiClient = axios.create({
   baseURL: API_URL,
